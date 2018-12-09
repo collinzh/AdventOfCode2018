@@ -27,3 +27,18 @@ func ScanToStringSlices(file *os.File) []string {
 	}
 	return str
 }
+
+func ScanToRuneSlices(file *os.File) []rune {
+	runes := make([]rune, 0)
+	reader := bufio.NewReader(file)
+	for true {
+		r, s, e := reader.ReadRune()
+		if e != nil || s == 0 {
+			break
+		}
+		runes = append(runes, r)
+	}
+	return runes
+}
+
+const Letters string = "abcdefghijklmnopqrstuvwxzy"
