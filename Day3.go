@@ -10,11 +10,7 @@ import (
 
 type Claim struct {
 	id, width, height int
-	position          *Position
-}
-
-type Position struct {
-	x, y int
+	position          *util.Position
 }
 
 var lineExp = regexp.MustCompile("^#([0-9]+) @ ([0-9]+),([0-9]+): ([0-9]+)x([0-9]+)$")
@@ -30,16 +26,16 @@ func ParseClaim(input string) *Claim {
 	width, _ := strconv.Atoi(found[4])
 	height, _ := strconv.Atoi(found[5])
 
-	return &Claim{id: id, position: &Position{x: x, y: y}, width: width, height: height}
+	return &Claim{id: id, position: &util.Position{X: x, Y: y}, width: width, height: height}
 }
 
-func DrawCanvas(claims []*Claim) map[Position][]*Claim {
-	canvas := make(map[Position][]*Claim)
+func DrawCanvas(claims []*Claim) map[util.Position][]*Claim {
+	canvas := make(map[util.Position][]*Claim)
 
 	for _, claim := range claims {
-		for x := claim.position.x; x < claim.position.x+claim.width; x++ {
-			for y := claim.position.y; y < claim.position.y+claim.height; y++ {
-				pos := Position{x: x, y: y}
+		for x := claim.position.X; x < claim.position.X+claim.width; x++ {
+			for y := claim.position.Y; y < claim.position.Y+claim.height; y++ {
+				pos := util.Position{X: x, Y: y}
 				if canvas[pos] == nil {
 					canvas[pos] = make([]*Claim, 0)
 				}

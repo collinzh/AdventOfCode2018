@@ -6,6 +6,10 @@ import (
 	"strconv"
 )
 
+type Position struct {
+	X, Y int
+}
+
 func ScanToIntSlice(f *os.File) []int {
 	numbers := make([]int, 0)
 	scanner := bufio.NewScanner(f)
@@ -39,6 +43,17 @@ func ScanToRuneSlices(file *os.File) []rune {
 		runes = append(runes, r)
 	}
 	return runes
+}
+
+func Distance(a, b *Position) int {
+	return IntegerAbs(a.X-b.X) + IntegerAbs(a.Y-b.Y)
+}
+
+func IntegerAbs(num int) int {
+	if num < 0 {
+		return -num
+	}
+	return num
 }
 
 const Letters string = "abcdefghijklmnopqrstuvwxzy"
