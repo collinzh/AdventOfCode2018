@@ -13,10 +13,11 @@ type Position struct {
 func ScanToIntSlice(f *os.File) []int {
 	numbers := make([]int, 0)
 	scanner := bufio.NewScanner(f)
+	scanner.Split(bufio.ScanWords)
 	for scanner.Scan() {
 		num, err := strconv.Atoi(scanner.Text())
 		if err != nil {
-			panic(nil)
+			panic(err)
 		}
 		numbers = append(numbers, num)
 	}
